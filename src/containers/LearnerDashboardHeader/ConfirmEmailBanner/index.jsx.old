@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable max-len */
+import React, { useState } from 'react';
 import {
   Button,
   Image,
@@ -19,7 +20,7 @@ export const ConfirmEmailBanner = () => {
     showConfirmModal,
     showPageBanner,
     closePageBanner,
-    closeConfirmModal, // Esta función ya cierra el modal correctamente
+    closeConfirmModal,
     openConfirmModalButtonClick,
     userConfirmEmailButtonClick,
   } = useConfirmEmailBannerData();
@@ -27,13 +28,16 @@ export const ConfirmEmailBanner = () => {
 
   if (!isNeeded) { return null; }
 
+  /*Anova cambios*/
+  const [hideModal, setHideModal] = useState(false);
+
   const handleCloseModal = () => {
-    closeConfirmModal(); // Cierra el modal correctamente
-  };
+  	setHideModal(true);
+  }
 
   return (
     <>
-      <PageBanner show={showPageBanner} dismissible={false}>
+      <PageBanner show={showPageBanner} /*dismissible onDismiss={closePageBanner}*/>
         {formatMessage(messages.confirmEmailTextReminderBanner, {
           confirmNowButton: (
             <Button
@@ -47,11 +51,11 @@ export const ConfirmEmailBanner = () => {
           ),
         })}
       </PageBanner>
-      
       <MarketingModal
         title=""
-        isOpen={showConfirmModal} // Usa el estado de la API en lugar de `hideModal`
-        onClose={closeConfirmModal} // Usa la función original de cierre
+        isOpen={showConfirmModal}
+        onClose={closeConfirmModal}
+	className={hideModal ? "hidden-modal" : ""}
         hasCloseButton={false}
         heroNode={(
           <ModalDialog.Hero className="bg-gray-300">
@@ -63,11 +67,7 @@ export const ConfirmEmailBanner = () => {
           </ModalDialog.Hero>
         )}
         footerNode={(
-          <Button 
-            className="mx-auto my-3" 
-            variant="danger" 
-            onClick={handleCloseModal} // Cierra el modal correctamente
-          >
+          <Button className="mx-auto my-3" variant="danger" onClick={handleCloseModal}>
             {formatMessage(messages.verifiedConfirmEmailButton)}
           </Button>
         )}
@@ -78,5 +78,6 @@ export const ConfirmEmailBanner = () => {
     </>
   );
 };
+ConfirmEmailBanner.propTypes = {};
 
 export default ConfirmEmailBanner;
