@@ -30,7 +30,7 @@ export const ConfirmEmailBanner = () => {
 
   return (
     <>
-      <PageBanner show={showPageBanner} dismissible onDismiss={closePageBanner}>
+      <PageBanner show={showPageBanner} /*dismissible onDismiss={closePageBanner}*/>
         {formatMessage(messages.confirmEmailTextReminderBanner, {
           confirmNowButton: (
             <Button
