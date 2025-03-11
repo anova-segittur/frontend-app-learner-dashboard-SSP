@@ -22,12 +22,12 @@ export const useConfirmEmailBannerData = () => {
   const openConfirmModalButtonClick = () => {
     sendConfirmEmail();
     openConfirmModal();
-    closePageBanner();
+    //closePageBanner();
   };
 
   const userConfirmEmailButtonClick = () => {
     closeConfirmModal();
-    closePageBanner();
+    //closePageBanner();
   };
   return {
     isNeeded,

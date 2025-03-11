@@ -18,8 +18,8 @@ export const ConfirmEmailBanner = () => {
     isNeeded,
     showConfirmModal,
     showPageBanner,
-    closePageBanner,
-    closeConfirmModal, // Esta función ya cierra el modal correctamente
+    closePageBanner, // Permite cerrar solo el banner manualmente
+    closeConfirmModal,
     openConfirmModalButtonClick,
     userConfirmEmailButtonClick,
   } = useConfirmEmailBannerData();
@@ -28,12 +28,13 @@ export const ConfirmEmailBanner = () => {
   if (!isNeeded) { return null; }
 
   const handleCloseModal = () => {
-    closeConfirmModal(); // Cierra el modal correctamente
+    closeConfirmModal(); // Cierra solo el modal, sin afectar el banner
   };
 
   return (
     <>
-      <PageBanner show={showPageBanner} dismissible={false}>
+      {/* 🔹 Asegura que el PageBanner siempre esté visible hasta que el usuario lo cierre */}
+      <PageBanner show={showPageBanner} dismissible onDismiss={closePageBanner}>
         {formatMessage(messages.confirmEmailTextReminderBanner, {
           confirmNowButton: (
             <Button
@@ -50,8 +51,8 @@ export const ConfirmEmailBanner = () => {
       
       <MarketingModal
         title=""
-        isOpen={showConfirmModal} // Usa el estado de la API en lugar de `hideModal`
-        onClose={closeConfirmModal} // Usa la función original de cierre
+        isOpen={showConfirmModal}
+        onClose={closeConfirmModal}
         hasCloseButton={false}
         heroNode={(
           <ModalDialog.Hero className="bg-gray-300">
@@ -66,7 +67,7 @@ export const ConfirmEmailBanner = () => {
           <Button 
             className="mx-auto my-3" 
             variant="danger" 
-            onClick={handleCloseModal} // Cierra el modal correctamente
+            onClick={handleCloseModal} // Cierra solo el modal, sin afectar el banner
           >
             {formatMessage(messages.verifiedConfirmEmailButton)}
           </Button>
@@ -80,3 +81,4 @@ export const ConfirmEmailBanner = () => {
 };
 
 export default ConfirmEmailBanner;
+
