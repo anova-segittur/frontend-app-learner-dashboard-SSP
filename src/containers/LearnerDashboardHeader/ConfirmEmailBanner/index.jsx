@@ -28,6 +28,12 @@ export const ConfirmEmailBanner = () => {
 
   if (!isNeeded) { return null; }
 
+  /*Anova cambios*/
+  const [hideModal, setHideModal] = useState(false);
+
+  const handleCloseModal = () => {
+  	setHideModal(true);
+  }
   return (
     <>
       <PageBanner show={showPageBanner} /*dismissible onDismiss={closePageBanner}*/>
@@ -48,6 +54,7 @@ export const ConfirmEmailBanner = () => {
         title=""
         isOpen={showConfirmModal}
         onClose={closeConfirmModal}
+	className={hideModal ? "hidden-modal" : ""}
         hasCloseButton={false}
         heroNode={(
           <ModalDialog.Hero className="bg-gray-300">
@@ -59,7 +66,7 @@ export const ConfirmEmailBanner = () => {
           </ModalDialog.Hero>
         )}
         footerNode={(
-          <Button className="mx-auto my-3" variant="danger" onClick={userConfirmEmailButtonClick}>
+          <Button className="mx-auto my-3" variant="danger" onClick={handleCloseModal}>
             {formatMessage(messages.verifiedConfirmEmailButton)}
           </Button>
         )}
