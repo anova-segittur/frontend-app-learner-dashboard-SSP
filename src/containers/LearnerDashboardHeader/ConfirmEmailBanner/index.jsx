@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Image,
@@ -34,6 +34,7 @@ export const ConfirmEmailBanner = () => {
   const handleCloseModal = () => {
   	setHideModal(true);
   }
+
   return (
     <>
       <PageBanner show={showPageBanner} /*dismissible onDismiss={closePageBanner}*/>
